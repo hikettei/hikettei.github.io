@@ -1,5 +1,26 @@
 const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+const portraitButton = document.querySelector(".portrait-button");
+let portraitTurns = 0;
+if (!motionPreference.matches) {
+  portraitButton.addEventListener("animationend", () => {
+    portraitButton.classList.remove("is-intro");
+  }, { once: true });
+} else {
+  portraitButton.classList.remove("is-intro");
+}
+portraitButton.addEventListener("click", () => {
+  portraitButton.classList.remove("is-intro");
+  portraitButton.style.animation = "none";
+  portraitTurns += 1;
+  const showQR = portraitTurns % 2 === 1;
+  portraitButton.querySelector(".portrait-card").style.transform = `rotateY(${portraitTurns * 180}deg)`;
+  portraitButton.setAttribute("aria-pressed", String(showQR));
+  portraitButton.setAttribute("aria-label", showQR ? "Show portrait" : "Show QR code for https://hikettei.github.io/");
+  portraitButton.querySelector(".portrait-front").setAttribute("aria-hidden", String(showQR));
+  portraitButton.querySelector(".portrait-back").setAttribute("aria-hidden", String(!showQR));
+});
+
 const hero = document.querySelector(".hero");
 const blog = document.querySelector(".writing");
 let movingBetweenSections = false;
