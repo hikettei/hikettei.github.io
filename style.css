@@ -28,11 +28,37 @@ main {
   gap: clamp(40px, 7vw, 88px);
 }
 
+.portrait-frame {
+  perspective: 1200px;
+}
+
 .portrait {
   display: block;
   width: 100%;
   height: auto;
   border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgb(64 62 56 / 10%),
+    0 4px 6px -2px rgb(64 62 56 / 20%),
+    0 14px 24px -6px rgb(64 62 56 / 28%),
+    0 28px 48px -12px rgb(64 62 56 / 26%);
+  animation: portrait-spin 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes portrait-spin {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(720deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait {
+    animation: none;
+  }
 }
 
 h1 {
@@ -107,7 +133,7 @@ a.link:focus-visible {
     text-align: center;
   }
 
-  .portrait {
+  .portrait-frame {
     width: 88%;
     margin-inline: auto;
   }
